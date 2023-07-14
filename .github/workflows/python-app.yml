@@ -46,11 +46,11 @@ jobs:
           API_SERVICE_IMAGE: winepredict-api
           STREAMLIT_SERVICE_IMAGE: winepredict-streamlit
         run: |
-          ssh deploy_ec2 "mkdir temp"
-          ssh deploy_ec2 "git clone https://github.com/ariprachmaan/winepredict.git temp"
-          ssh deploy_ec2 "rsync -a temp/ $PATH_FILE"
-          ssh deploy_ec2 "rm -rf temp/"
-          ssh deploy_ec2 "cd $PATH_FILE"
-          ssh deploy_ec2 "cd $PATH_FILE && sudo docker-compose down"
-          ssh deploy_ec2 "cd $PATH_FILE && sudo docker rmi $API_SERVICE_IMAGE -f || sudo docker rmi $STREAMLIT_SERVICE_IMAGE -f"
-          ssh deploy_ec2 "cd $PATH_FILE && sudo docker-compose build && sudo docker-compose up -d"
+          ssh -F ~/.ssh/config deploy_ec2 "mkdir temp"
+          ssh -F ~/.ssh/config deploy_ec2 "git clone https://github.com/ariprachmaan/winepredict.git temp"
+          ssh -F ~/.ssh/config deploy_ec2 "rsync -a temp/ $PATH_FILE"
+          ssh -F ~/.ssh/config deploy_ec2 "rm -rf temp/"
+          ssh -F ~/.ssh/config deploy_ec2 "cd $PATH_FILE"
+          ssh -F ~/.ssh/config deploy_ec2 "cd $PATH_FILE && sudo docker-compose down"
+          ssh -F ~/.ssh/config deploy_ec2 "cd $PATH_FILE && sudo docker rmi $API_SERVICE_IMAGE -f || sudo docker rmi $STREAMLIT_SERVICE_IMAGE -f"
+          ssh -F ~/.ssh/config deploy_ec2 "cd $PATH_FILE && sudo docker-compose build && sudo docker-compose up -d"
