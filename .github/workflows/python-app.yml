@@ -39,6 +39,10 @@ jobs:
             IdentityFile ~/.ssh/deployment.pem
             StrictHostKeyChecking no
           END
+          
+      - name: Print SSH Config
+        run: |
+          cat ~/.ssh/config
 
       - name: Deploy to EC2
         env:
