@@ -39,10 +39,6 @@ jobs:
             IdentityFile ~/.ssh/deployment.pem
             StrictHostKeyChecking no
           END
-          
-      - name: Print SSH Config
-        run: |
-          cat ~/.ssh/config
 
       - name: Deploy to EC2
         env:
@@ -50,7 +46,7 @@ jobs:
           API_SERVICE_IMAGE: winepredict-api
           STREAMLIT_SERVICE_IMAGE: winepredict-streamlit
         run: |
-          ssh -F ~/.ssh/config deploy_ec2 "mkdir temp"
+          ssh -F ~/.ssh/config deploy_ec2 "[ ! -d temp ] && mkdir temp"
           ssh -F ~/.ssh/config deploy_ec2 "git clone https://github.com/ariprachmaan/winepredict.git temp"
           ssh -F ~/.ssh/config deploy_ec2 "rsync -a temp/ $PATH_FILE"
           ssh -F ~/.ssh/config deploy_ec2 "rm -rf temp/"
